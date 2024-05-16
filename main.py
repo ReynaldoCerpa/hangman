@@ -19,10 +19,8 @@ chances = 6
 
 # pick word
 game_word = words[random.randrange(0, (len(words) - 1))]
-print(game_word)
 
 def render_text(letters):
-
     response = ''
     for letter in game_word:
         if letter in letters:
