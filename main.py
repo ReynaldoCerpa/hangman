@@ -7,12 +7,7 @@ pygame.init()
 pygame.font.init()
 
 screen = pygame.display.set_mode((600, 600))
-screen.fill('blue')
 
-# draws hang
-pygame.draw.line(screen, "black", (100, 50), (100, 330), 10)
-pygame.draw.line(screen, "black", (100, 50), (310, 50), 10)
-pygame.draw.line(screen, "black", (300, 50), (300, 120), 3)
 
 font = pygame.font.SysFont('Comic Sans MS', 100)
 clock = pygame.time.Clock()
@@ -27,6 +22,7 @@ game_word = words[random.randrange(0, (len(words) - 1))]
 print(game_word)
 
 def render_text(letters):
+
     response = ''
     for letter in game_word:
         if letter in letters:
@@ -49,6 +45,13 @@ while running:
                 pass
             else:
                 chances -= 1
+
+    screen.fill('blue')
+
+    # draws hang
+    pygame.draw.line(screen, "black", (100, 50), (100, 330), 10)
+    pygame.draw.line(screen, "black", (100, 50), (310, 50), 10)
+    pygame.draw.line(screen, "black", (300, 50), (300, 120), 3)
     
     Person(chances=chances, screen=screen).render()
 
