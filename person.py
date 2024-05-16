@@ -16,7 +16,7 @@ class Person:
         self.chances = chances
         self.screen = screen
 
-    def draw_person(self):
+    def render(self):
         for i in range(len(self.coordinates) - self.chances):
             if i == 0:
                 pygame.draw.circle(self.screen, "black", self.coordinates[i][0], 20)
