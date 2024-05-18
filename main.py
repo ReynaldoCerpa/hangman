@@ -2,14 +2,12 @@ import pygame
 import random
 from person import Person
 from constants import words
+from underscores import Underscores
 
 pygame.init()
-pygame.font.init()
 
 screen = pygame.display.set_mode((600, 600))
 
-
-font = pygame.font.SysFont('Comic Sans MS', 100)
 clock = pygame.time.Clock()
 running = True
 dt = 0
@@ -20,18 +18,22 @@ chances = 6
 # pick word
 game_word = words[random.randrange(0, (len(words) - 1))]
 
-def render_text(letters):
-    response = ''
-    for letter in game_word:
-        if letter in letters:
-            response += f'{letter} '
-        else:
-            response += '_ '
-
-    text = font.render(response, False, (0, 0, 0))
-    screen.blit(text, (90, 350))
 
 while running:
+
+    if chances == 0:
+        print('You lost...')
+        break
+    if len(found_letters) == len(game_word):
+        print('You won!')
+        break
+
+    screen.fill('blue')
+    # draws hang
+    pygame.draw.line(screen, "black", (100, 50), (100, 330), 10)
+    pygame.draw.line(screen, "black", (100, 50), (310, 50), 10)
+    pygame.draw.line(screen, "black", (300, 50), (300, 120), 3)
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
@@ -43,17 +45,9 @@ while running:
                 pass
             else:
                 chances -= 1
-
-    screen.fill('blue')
-
-    # draws hang
-    pygame.draw.line(screen, "black", (100, 50), (100, 330), 10)
-    pygame.draw.line(screen, "black", (100, 50), (310, 50), 10)
-    pygame.draw.line(screen, "black", (300, 50), (300, 120), 3)
     
     Person(chances=chances, screen=screen).render()
-
-    render_text(found_letters)
+    Underscores(game_word=game_word, screen=screen).render(found_letters)
 
     # flip() the display to put your work on screen
     pygame.display.flip()
